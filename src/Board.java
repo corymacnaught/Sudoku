@@ -49,15 +49,27 @@ public class Board {
 		HashMap<Integer, Integer>[] columns = new HashMap[9];
 		HashMap<Integer, Integer>[] boxes = new HashMap[9];
 		
+		for (int i = 0; i < rows.length; i++) {
+			rows[i] = new HashMap<Integer, Integer>();
+			columns[i] = new HashMap<Integer, Integer>();
+			boxes[i] = new HashMap<Integer, Integer>();
+		}
+		
+		
 		for (int row = 0; row < Board.NUM_ROWS; row++) {
 			for (int column = 0; column < Board.NUM_COLUMNS; column++) {
+				
 				int value = grid[row][column];
+				if (value == 0) break;
 				
 				int box = 0; // Change later
 				HashMap<Integer, Integer> rowMap = rows[row];
 				HashMap<Integer, Integer> columnMap = columns[column];
 				HashMap<Integer, Integer> boxMap = boxes[box];
 				
+				// Check if the value is already in the current row, column or box
+				// If if is, return false
+				// Otherwise, put the value in the row, column and box
 				if (rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value)) {
 					return false;
 				} else {
