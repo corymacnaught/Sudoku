@@ -51,11 +51,24 @@ public class Board {
 		
 		for (int row = 0; row < Board.NUM_ROWS; row++) {
 			for (int column = 0; column < Board.NUM_COLUMNS; column++) {
+				int value = grid[row][column];
 				
+				int box = 0; // Change later
+				HashMap<Integer, Integer> rowMap = rows[row];
+				HashMap<Integer, Integer> columnMap = columns[column];
+				HashMap<Integer, Integer> boxMap = boxes[box];
+				
+				if (rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value)) {
+					return false;
+				} else {
+					rowMap.put(value, 1);
+					columnMap.put(value, 1);
+					boxMap.put(value, 1);
+				}
 			}
 		}
 		
-		return false;
+		return true;
 	}
 	
 	public String toString() {
