@@ -1,4 +1,8 @@
 
 public class Sudoku {
-	System.out.println("test");
+	
+	
+	public static void main(String args[]) {
+		
+	}
 }
