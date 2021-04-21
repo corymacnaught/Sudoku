@@ -7,30 +7,11 @@ public class Board {
 	public final static int NUM_COLUMNS = 9;
 	
 	//first number = rows, second number = columns
-	/*private int[][] grid = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	         		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };*/
 	
-	private int[][] grid = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
-	         				 {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
-	         				 {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
-	         				 {0, 0, 3, 0, 1, 0, 0, 8, 0}, 
-	         				 {9, 0, 0, 8, 6, 3, 0, 0, 5}, 
-	         				 {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
-	         				 {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
-	         				 {0, 0, 0, 0, 0, 0, 0, 7, 4}, 
-	         				 {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+	private int[][] grid;
 	
-	
-	
-	public Board() {
-		
+	public Board(int[][] grid) {
+		this.grid = grid;
 	}
 	
 	// Generates a board with one solution
@@ -60,7 +41,7 @@ public class Board {
 			for (int column = 0; column < Board.NUM_COLUMNS; column++) {
 				
 				int value = grid[row][column];
-				if (value == 0) break;
+				if (value == 0) continue;
 				
 				int box = this.getBox(row, column);
 				HashMap<Integer, Integer> rowMap = rows[row];

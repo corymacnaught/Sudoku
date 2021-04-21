@@ -6,12 +6,22 @@ class BoardTest {
 
 	@Test
 	void test() {
-		getBoxTest();
 		
 	}
 	
+	@Test
 	void getBoxTest() {
-		Board board = new Board();
+		int[][] grid = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+				 {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+				 {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+				 {0, 0, 3, 0, 1, 0, 0, 8, 0}, 
+				 {9, 0, 0, 8, 6, 3, 0, 0, 5}, 
+				 {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+				 {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+				 {0, 0, 0, 0, 0, 0, 0, 7, 4}, 
+				 {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+		
+		Board board = new Board(grid);
 		
 		assertEquals(0, board.getBox(0, 0));
 		assertEquals(0, board.getBox(2, 2));
@@ -33,4 +43,58 @@ class BoardTest {
 		assertEquals(8, board.getBox(8, 8));
 	}
 
+	@Test
+	void isValidTest() {
+		int[][] gridValid = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+				 			  {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+				 			  {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+				 			  {0, 0, 3, 0, 1, 0, 0, 8, 0}, 
+							  {9, 0, 0, 8, 6, 3, 0, 0, 5}, 
+							  {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+							  {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+							  {0, 0, 0, 0, 0, 0, 0, 7, 4}, 
+							  {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+		
+		int[][] gridFailureRow = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+	 			  				   {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+	 			  				   {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+	 			  				   {0, 0, 3, 0, 1, 0, 1, 8, 0}, 
+	 			  				   {9, 0, 0, 8, 6, 3, 0, 0, 5}, 
+	 			  				   {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+	 			  				   {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+	 			  				   {0, 0, 0, 0, 0, 0, 0, 7, 4}, 
+	 			  				   {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+		
+		int[][] gridFailureColumn = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+				   					  {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+				   					  {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+				   					  {0, 0, 3, 0, 1, 0, 0, 8, 0}, 
+				   					  {9, 0, 0, 8, 6, 3, 0, 0, 5}, 
+				   					  {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+				   					  {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+				   					  {0, 0, 0, 0, 0, 8, 0, 7, 4}, 
+				   					  {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+		
+		int[][] gridFailureBox = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+					  			   {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+					  			   {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+					  			   {0, 0, 3, 0, 1, 0, 0, 8, 0}, 
+					  			   {9, 0, 0, 8, 6, 3, 0, 0, 5}, 
+					  			   {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+					  			   {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+					  			   {0, 0, 0, 6, 0, 0, 0, 7, 4}, 
+					  			   {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+
+		
+		Board boardValid = new Board(gridValid);
+		Board boardFailureRow = new Board(gridFailureRow);
+		Board boardFailureColumn = new Board(gridFailureColumn);
+		Board boardFailureBox = new Board(gridFailureBox);
+		
+		assertEquals(true, boardValid.isValid());
+		assertEquals(false, boardFailureRow.isValid());
+		assertEquals(false, boardFailureColumn.isValid());
+		assertEquals(false, boardFailureBox.isValid());
+	}
+	
 }
