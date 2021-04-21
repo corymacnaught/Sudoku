@@ -97,7 +97,7 @@ public class Board {
 	// 6{6,6,6,7,7,7,8,8,8}
 	// 7{6,6,6,7,7,7,8,8,8}
 	// 8{6,6,6,7,7,7,8,8,8}
-	public int getBox(int row, int column) {
+	private int getBox(int row, int column) {
 		return row / 3 * 3 + column / 3;
 	}
 	
