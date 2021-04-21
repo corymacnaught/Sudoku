@@ -62,7 +62,7 @@ public class Board {
 				int value = grid[row][column];
 				if (value == 0) break;
 				
-				int box = this.getBox();
+				int box = this.getBox(row, column);
 				HashMap<Integer, Integer> rowMap = rows[row];
 				HashMap<Integer, Integer> columnMap = columns[column];
 				HashMap<Integer, Integer> boxMap = boxes[box];
@@ -84,11 +84,21 @@ public class Board {
 	}
 	
 	// Get the box that the row/column is in
-	//{1,2,3}
-	//{4,5,6}
-	//{7,8,9}
-	public int getBox() {
-		return 0;
+	//{0,1,2}
+	//{3,4,5}
+	//{6,7,8}
+	//	 0,1,2,3,4,5,6,7,8
+	// 0{0,0,0,1,1,1,2,2,2}
+	// 1{0,0,0,1,1,1,2,2,2}
+	// 2{0,0,0,1,1,1,2,2,2}
+	// 3{3,3,3,4,4,4,5,5,5}
+	// 4{3,3,3,4,4,4,5,5,5}
+	// 5{3,3,3,4,4,4,5,5,5}
+	// 6{6,6,6,7,7,7,8,8,8}
+	// 7{6,6,6,7,7,7,8,8,8}
+	// 8{6,6,6,7,7,7,8,8,8}
+	public int getBox(int row, int column) {
+		return row / 3 * 3 + column / 3;
 	}
 	
 	public String toString() {
