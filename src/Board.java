@@ -12,7 +12,7 @@ public class Board {
 	private int[][] grid;
 	
 	public Board(int[][] grid) {
-		this.grid = this.isValidGrid(grid) ? grid : Board.generateRandomGrid();
+		this.grid = Board.isValidGrid(grid) ? grid : Board.generateRandomSudokuGrid();
 	}
 	
 	// Solve the current board
@@ -68,7 +68,7 @@ public class Board {
 	}
 	
 	// Generates a board with one solution
-	public static int[][] generateRandomGrid() {
+	public static int[][] generateRandomSudokuGrid() {
 		int[][] nullGrid = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
        		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
        		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -96,7 +96,7 @@ public class Board {
 	// 6{6,6,6,7,7,7,8,8,8}
 	// 7{6,6,6,7,7,7,8,8,8}
 	// 8{6,6,6,7,7,7,8,8,8}
-	public static int getBox(int row, int column) {
+	public static int getSudokuBox(int row, int column) {
 		return row / 3 * 3 + column / 3;
 	}
 	
