@@ -12,12 +12,7 @@ public class Board {
 	private int[][] grid;
 	
 	public Board(int[][] grid) {
-		this.grid = grid;
-	}
-	
-	// Generates a board with one solution
-	public void generateRandomBoard() {
-		
+		this.grid = this.isValidGrid(grid) ? grid : Board.generateRandomGrid();
 	}
 	
 	// Solve the current board
@@ -25,8 +20,13 @@ public class Board {
 		
 	}
 	
-	// Check if the current Sudoku is Valid
 	public boolean isValid() {
+		return Board.isValidGrid(this.grid);
+	}
+	
+	// Static functions
+	// Check if the current Sudoku is Valid
+	public static boolean isValidGrid(int[][] grid) {
 		if (grid.length != NUM_COLUMNS) return false; // Not valid if a column length is more or less than 9
 		
 		HashMap<Integer, Integer>[] rows = new HashMap[NUM_ROWS];
@@ -48,7 +48,7 @@ public class Board {
 				if (value == 0) continue; // 0 = empty space
 				if (value < 1 || value > 9) return false; // numbers should only be between 1 and 9
 				
-				int box = this.getBox(row, column);
+				int box = Board.getBox(row, column);
 				HashMap<Integer, Integer> rowMap = rows[row];
 				HashMap<Integer, Integer> columnMap = columns[column];
 				HashMap<Integer, Integer> boxMap = boxes[box];
@@ -67,6 +67,21 @@ public class Board {
 		return true;
 	}
 	
+	// Generates a board with one solution
+	public static int[][] generateRandomGrid() {
+		int[][] nullGrid = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+		
+		return nullGrid;
+	}
+	
 	// Get the box that the row/column is in
 	//{0,1,2}
 	//{3,4,5}
@@ -81,17 +96,13 @@ public class Board {
 	// 6{6,6,6,7,7,7,8,8,8}
 	// 7{6,6,6,7,7,7,8,8,8}
 	// 8{6,6,6,7,7,7,8,8,8}
-	public int getBox(int row, int column) {
+	public static int getBox(int row, int column) {
 		return row / 3 * 3 + column / 3;
 	}
 	
 	public String toString() {
-		
 		String s = "";
-		for (int[] array : grid) {
-			s += Arrays.toString(array) + "\n";
-		}
-		
+		for (int[] array : grid) s += Arrays.toString(array) + "\n";
 		return s;
 	}
 }

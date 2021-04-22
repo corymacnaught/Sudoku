@@ -135,13 +135,13 @@ class BoardTest {
 		Board boardFailureRowLengthSmall = new Board(gridFailureRowLengthSmall);
 		Board boardFailureColumnLengthSmall = new Board(gridFailureColumnLengthSmall);
 		
-		//assertEquals(true, boardValid.isValid());
-		//assertEquals(false, boardFailureRow.isValid());
-		//assertEquals(false, boardFailureColumn.isValid());
-		//assertEquals(false, boardFailureBox.isValid());
-		//assertEquals(false, boardFailureRowLengthLarge.isValid());	// These tests are not working correctly
-		//assertEquals(false, boardFailureColumnLengthLarge.isValid());
-		//assertEquals(false, boardFailureRowLengthSmall.isValid());	// These tests are not working correctly
+		assertEquals(true, boardValid.isValid());
+		assertEquals(false, boardFailureRow.isValid());
+		assertEquals(false, boardFailureColumn.isValid());
+		assertEquals(false, boardFailureBox.isValid());
+		assertEquals(false, boardFailureRowLengthLarge.isValid());	// These tests are not working correctly
+		assertEquals(false, boardFailureColumnLengthLarge.isValid());
+		assertEquals(false, boardFailureRowLengthSmall.isValid());	// These tests are not working correctly
 		assertEquals(false, boardFailureColumnLengthSmall.isValid());
 	}
 	
