@@ -48,7 +48,7 @@ public class Board {
 				if (value == 0) continue; // 0 = empty space
 				if (value < 1 || value > 9) return false; // numbers should only be between 1 and 9
 				
-				int box = Board.getBox(row, column);
+				int box = Board.calculateSudokuBox(row, column);
 				HashMap<Integer, Integer> rowMap = rows[row];
 				HashMap<Integer, Integer> columnMap = columns[column];
 				HashMap<Integer, Integer> boxMap = boxes[box];
@@ -96,7 +96,7 @@ public class Board {
 	// 6{6,6,6,7,7,7,8,8,8}
 	// 7{6,6,6,7,7,7,8,8,8}
 	// 8{6,6,6,7,7,7,8,8,8}
-	public static int getSudokuBox(int row, int column) {
+	public static int calculateSudokuBox(int row, int column) {
 		return row / 3 * 3 + column / 3;
 	}
 	
