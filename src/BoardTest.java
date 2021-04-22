@@ -84,17 +84,41 @@ class BoardTest {
 					  			   {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
 					  			   {0, 0, 0, 6, 0, 0, 0, 7, 4}, 
 					  			   {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+		
+		int[][] gridFailureRowLength = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+	  			   {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+	  			   {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+	  			   {0, 0, 3, 0, 1, 0, 0, 8, 0}, 
+	  			   {9, 0, 0, 8, 6, 3, 0, 0, 5, 0}, 
+	  			   {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+	  			   {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+	  			   {0, 0, 0, 6, 0, 0, 0, 7, 4}, 
+	  			   {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+		
+		int[][] gridFailureColumnLength = { {3, 0, 6, 5, 0, 8, 4, 0, 0}, 
+	  			   {5, 2, 0, 0, 0, 0, 0, 0, 0}, 
+	  			   {0, 8, 7, 0, 0, 0, 0, 3, 1}, 
+	  			   {0, 0, 3, 0, 1, 0, 0, 8, 0}, 
+	  			   {9, 0, 0, 8, 6, 3, 0, 0, 5}, 
+	  			   {0, 5, 0, 0, 9, 0, 6, 0, 0}, 
+	  			   {1, 3, 0, 0, 0, 0, 2, 5, 0}, 
+	  			   {0, 0, 0, 6, 0, 0, 0, 7, 4}, 
+	  			   {0, 0, 5, 2, 0, 6, 3, 0, 0},
+	  			   {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
 		
 		Board boardValid = new Board(gridValid);
 		Board boardFailureRow = new Board(gridFailureRow);
 		Board boardFailureColumn = new Board(gridFailureColumn);
 		Board boardFailureBox = new Board(gridFailureBox);
+		Board boardFailureRowLength = new Board(gridFailureRowLength);
+		Board boardFailureColumnLength = new Board(gridFailureColumnLength);
 		
 		assertEquals(true, boardValid.isValid());
 		assertEquals(false, boardFailureRow.isValid());
 		assertEquals(false, boardFailureColumn.isValid());
-		assertEquals(false, boardFailureBox.isValid());
+		assertEquals(false, boardFailureBox.isValid());	// These tests are not working correctly
+		assertEquals(false, boardFailureRowLength.isValid());	// These tests are not working correctly
 	}
 	
 }
