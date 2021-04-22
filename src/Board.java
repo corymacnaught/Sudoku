@@ -27,7 +27,7 @@ public class Board {
 	
 	// Check if the current Sudoku is Valid
 	public boolean isValid() {
-		//if (grid.length != NUM_COLUMNS) return false; // Not valid if a column length is more or less than 9
+		if (grid.length != NUM_COLUMNS) return false; // Not valid if a column length is more or less than 9
 		
 		HashMap<Integer, Integer>[] rows = new HashMap[NUM_ROWS];
 		HashMap<Integer, Integer>[] columns = new HashMap[NUM_COLUMNS];
@@ -40,7 +40,7 @@ public class Board {
 		}
 		
 		for (int row = 0; row < Board.NUM_ROWS; row++) {
-			//if (grid[row].length != NUM_ROWS) return false; // Not valid if a row length is more or less than 9
+			if (grid[row].length != NUM_ROWS) return false; // Not valid if a row length is more or less than 9
 			
 			for (int column = 0; column < Board.NUM_COLUMNS; column++) {
 				
