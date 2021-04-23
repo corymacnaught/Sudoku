@@ -20,18 +20,45 @@ public class Board {
 	}
 	
 	// Solve the current board
-	public Board solve() {
-		return new Board(this.solve(this.grid));
+	public void solve() {
+		this.solve(0, 0);
 	}
 	
-	private int[][] solve(int[][] grid) {
+	private boolean solve(int row, int column) {
 		// Determine next available empty space
 		// If no empty space return grid
 		
+		// row = index / NUM_COLUMNS
+		// column = index % NUM_COLUMNS
+		int emptyRow = 0;
+		int emptyColumn = 0;
+		for (int i = row * NUM_COLUMNS + column; i <= NUM_COLUMNS * NUM_ROWS; i++) {
+			if (i == NUM_ROWS * NUM_COLUMNS) return true;
+			
+			int r = i / NUM_COLUMNS;
+			int c = i % NUM_COLUMNS;
+			if (this.grid[r][c] == 0) {
+				emptyRow = r;
+				emptyColumn = c;
+				break;
+			}
+		}
+		
 		// Check validity of adding numbers in order from 1 to 9
 		// If no valid number back track
+		for (int value = 1; value <= 9; value++) {
+			System.out.println("Row = " + emptyRow + " : Column = " + emptyColumn + " : Value = " + value + " : IsValidEntry = " + this.isValidAddition(emptyRow, emptyColumn, value));
+			if (this.isValidAddition(emptyRow, emptyColumn, value)) {
+				this.grid[emptyRow][emptyColumn] = value;
+				if (this.solve(emptyRow, emptyColumn)) {
+					//System.out.println(this.toString());
+					return true;
+				}
+				this.grid[emptyRow][emptyColumn] = 0;
+			}
+		}
 		
-		return grid;
+		return false;
 	}
 	
 	public boolean isValid() {
