@@ -5,7 +5,11 @@ public class Board {
 	
 	public final static int NUM_ROWS = 9;
 	public final static int NUM_COLUMNS = 9;
-	public final static int NUM_BOXES = 9;
+	
+	private final static int SMALL_BOX_ROWS = (int) Math.sqrt(NUM_ROWS);
+	private final static int SMALL_BOX_COLUMNS = (int) Math.sqrt(NUM_COLUMNS);
+	
+	public final static int NUM_BOXES = SMALL_BOX_ROWS * SMALL_BOX_COLUMNS;
 	
 	//first number = rows, second number = columns
 	
@@ -16,8 +20,8 @@ public class Board {
 	}
 	
 	// Solve the current board
-	public void solve() {
-		
+	public Board solve() {
+		return this;
 	}
 	
 	public boolean isValid() {
@@ -25,6 +29,31 @@ public class Board {
 	}
 	
 	// Static functions
+	// Check if the adding a value to the sudoku will invalidate it
+	// This should only be used if the current Sudoku board is already validated
+	public boolean isValidAddition(int row, int column, int value) {
+		if (value < 1 || value > 9) return false; // Invalid if number is not inclusive of 1-9
+		if (grid[row][column] != 0) return false; // Invalid if row and column already has a value
+		
+		HashMap<Integer, Integer> rowMap = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> columnMap = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> boxMap = new HashMap<Integer, Integer>();
+		
+		int boxRowStart = row - row % SMALL_BOX_ROWS;
+        int boxColStart = column - column % SMALL_BOX_COLUMNS;
+		for (int i = 0; i < NUM_ROWS; i++) {
+			if (grid[row][i] != 0) rowMap.put(grid[row][i], 1);				// Row
+			if (grid[i][column] != 0) columnMap.put(grid[i][column], 1);	// Column
+			if (i >= boxRowStart && i < boxRowStart + SMALL_BOX_ROWS) for (int g = boxColStart; g < boxColStart + SMALL_BOX_COLUMNS; g++) if (grid[i][g] != 0) boxMap.put(grid[i][g], 1);
+		}
+		
+		/*int boxRowStart = row - row % SMALL_BOX_ROWS;
+        int boxColStart = column - column % SMALL_BOX_COLUMNS;
+		for (int r = boxRowStart; r < boxRowStart + SMALL_BOX_ROWS; r++)*/
+		
+		return !(rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value));
+	}
+	
 	// Check if the current Sudoku is Valid
 	public static boolean isValidGrid(int[][] grid) {
 		if (grid.length != NUM_COLUMNS) return false; // Not valid if a column length is more or less than 9
@@ -97,7 +126,8 @@ public class Board {
 	// 7{6,6,6,7,7,7,8,8,8}
 	// 8{6,6,6,7,7,7,8,8,8}
 	public static int calculateSudokuBox(int row, int column) {
-		return row / 3 * 3 + column / 3;
+		
+		return row / SMALL_BOX_ROWS * SMALL_BOX_COLUMNS + column / SMALL_BOX_COLUMNS;
 	}
 	
 	public String toString() {
