@@ -30,22 +30,25 @@ public class Board {
 		
 		// row = index / NUM_COLUMNS
 		// column = index % NUM_COLUMNS
-		int emptyRow = 0;
-		int emptyColumn = 0;
-		for (int i = row * NUM_COLUMNS + column; i <= NUM_COLUMNS * NUM_ROWS; i++) {
-			if (i == NUM_ROWS * NUM_COLUMNS) return true;
-			
-			int r = i / NUM_COLUMNS;
-			int c = i % NUM_COLUMNS;
-			if (this.grid[r][c] == 0) {
-				emptyRow = r;
-				emptyColumn = c;
-				break;
-			}
-		}
+		int index = this.findNextEmptySpace(row, column);
+		if (index == -1) return true;
 		
-		// Check validity of adding numbers in order from 1 to 9
-		// If no valid number back track
+		int emptyRow = index / Board.NUM_COLUMNS;
+		int emptyColumn = index % Board.NUM_COLUMNS;
+		
+		return this.backtrack(emptyRow, emptyColumn);
+	}
+	
+	private int findNextEmptySpace(int row, int column) {
+		for (int i = row * NUM_COLUMNS + column; i < NUM_COLUMNS * NUM_ROWS; i++)
+			if (this.grid[i / NUM_COLUMNS][i % NUM_COLUMNS] == 0) return i;
+		
+		return -1;
+	}
+	
+	// Check validity of adding numbers in order from 1 to 9
+			// If no valid number back track
+	private boolean backtrack(int emptyRow, int emptyColumn) {
 		for (int value = 1; value <= 9; value++) {
 			//System.out.println("Row = " + emptyRow + " : Column = " + emptyColumn + " : Value = " + value + " : IsValidEntry = " + this.isValidAddition(emptyRow, emptyColumn, value));
 			if (this.isValidAddition(emptyRow, emptyColumn, value)) {
