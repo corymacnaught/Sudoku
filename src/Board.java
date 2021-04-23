@@ -21,7 +21,17 @@ public class Board {
 	
 	// Solve the current board
 	public Board solve() {
-		return this;
+		return new Board(this.solve(this.grid));
+	}
+	
+	private int[][] solve(int[][] grid) {
+		// Determine next available empty space
+		// If no empty space return grid
+		
+		// Check validity of adding numbers in order from 1 to 9
+		// If no valid number back track
+		
+		return grid;
 	}
 	
 	public boolean isValid() {
@@ -44,12 +54,11 @@ public class Board {
 		for (int i = 0; i < NUM_ROWS; i++) {
 			if (grid[row][i] != 0) rowMap.put(grid[row][i], 1);				// Row
 			if (grid[i][column] != 0) columnMap.put(grid[i][column], 1);	// Column
-			if (i >= boxRowStart && i < boxRowStart + SMALL_BOX_ROWS) for (int g = boxColStart; g < boxColStart + SMALL_BOX_COLUMNS; g++) if (grid[i][g] != 0) boxMap.put(grid[i][g], 1);
+			
+			if (i >= boxRowStart && i < boxRowStart + SMALL_BOX_ROWS) // Box
+				for (int g = boxColStart; g < boxColStart + SMALL_BOX_COLUMNS; g++)
+					if (grid[i][g] != 0) boxMap.put(grid[i][g], 1);
 		}
-		
-		/*int boxRowStart = row - row % SMALL_BOX_ROWS;
-        int boxColStart = column - column % SMALL_BOX_COLUMNS;
-		for (int r = boxRowStart; r < boxRowStart + SMALL_BOX_ROWS; r++)*/
 		
 		return !(rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value));
 	}
