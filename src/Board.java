@@ -1,9 +1,7 @@
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.swing.JPanel;
-
-public class Board extends JPanel{
+public class Board {
 	
 	public final static int NUM_ROWS = 9;
 	public final static int NUM_COLUMNS = 9;
