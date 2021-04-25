@@ -22,6 +22,8 @@ public class BoardDisplay extends JPanel{
 			for (int column = 0; column < Board.NUM_COLUMNS; column++) {
 				c.gridx = row;
 				c.gridy = column;
+				c.weightx = 1.0;
+				c.weighty = 1.0;
 				Cell cell = new Cell(row, column);
 				cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 				this.add(cell, c);

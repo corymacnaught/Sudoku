@@ -19,7 +19,7 @@ public class Sudoku implements ISpecifics{
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-            	boardDisplay.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
+            	boardDisplay.setPreferredSize(new Dimension(frame.getHeight() - CORRECTION_HEIGHT, frame.getHeight() - CORRECTION_HEIGHT));
             }
         });
     }
@@ -49,8 +49,8 @@ public class Sudoku implements ISpecifics{
 			frame.setVisible(true);
 			
 			boardDisplay = new BoardDisplay();
-			boardDisplay.setBounds(0, 0, frame.getHeight(), frame.getHeight());
-			boardDisplay.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
+			//boardDisplay.setBounds(0, 0, frame.getHeight(), frame.getHeight());
+			boardDisplay.setPreferredSize(new Dimension(frame.getHeight() - CORRECTION_HEIGHT, frame.getHeight() - CORRECTION_HEIGHT));
 			boardDisplay.setBackground(Color.WHITE);
 			
 			addComponentListener(frame);
