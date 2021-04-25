@@ -36,11 +36,20 @@ public class BoardDisplay extends JPanel{
 		}
 		
 		this.updateCells();
+		
+		board.addBoardEventListener(new BoardEventListener()
+		{
+			@Override
+			public void boardEventOccurred(BoardEvent evt)
+			{
+				System.out.println("test");
+			}
+		});
 	}
 	
 	public void solveSudoku() {
 		this.board.solve();
-		this.updateCells();
+		//this.updateCells();
 	}
 	
 	private void updateCells() {

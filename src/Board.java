@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.swing.event.EventListenerList;
+
 public class Board {
 	
 	public final static int NUM_ROWS = 9;
@@ -59,6 +61,7 @@ public class Board {
 	private boolean backtrack(int emptyRow, int emptyColumn) {
 		for (int value = 1; value <= 9; value++) {
 			//System.out.println("Row = " + emptyRow + " : Column = " + emptyColumn + " : Value = " + value + " : IsValidEntry = " + this.isValidAddition(emptyRow, emptyColumn, value));
+			fireDisplayEvent(new BoardEvent(value));
 			if (this.isValidAddition(emptyRow, emptyColumn, value)) {
 				this.grid[emptyRow][emptyColumn] = value;
 				if (this.solve(emptyRow, emptyColumn)) {
@@ -181,5 +184,31 @@ public class Board {
 		String s = "";
 		for (int[] array : grid) s += Arrays.toString(array) + "\n";
 		return s;
+	}
+	
+	// Event Listener
+	//Event Listeners
+	protected EventListenerList listenerList = new EventListenerList();
+	
+	public void addBoardEventListener(BoardEventListener listener)
+	{
+		listenerList.add(BoardEventListener.class, listener);
+	}
+	
+	public void removeBoardEventListener(BoardEventListener listener)
+	{
+		listenerList.remove(BoardEventListener.class, listener);
+	}
+
+	public void fireDisplayEvent(BoardEvent evt)
+	{
+		Object[] listeners = listenerList.getListenerList();
+		for (int i = 0; i < listeners.length; i = i + 2)
+		{
+			if (listeners[i] == BoardEventListener.class)
+			{
+				((BoardEventListener)listeners[i + 1]).boardEventOccurred(evt);
+			}
+		}
 	}
 }
