@@ -1,14 +1,16 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class Sudoku implements ISpecifics{
 	
@@ -55,6 +57,22 @@ public class Sudoku implements ISpecifics{
 
 			addComponentListener(frame);
 			frame.add(boardDisplay);
+			
+			// Menu
+			JMenuBar menuBar = new JMenuBar();
+			frame.setJMenuBar(menuBar);
+			
+			JMenu menu = new JMenu("Actions");
+			menu.setMnemonic(KeyEvent.VK_A);
+			menuBar.add(menu);
+			
+			JMenuItem menuItemNew = new JMenuItem("Solve");
+			menuItemNew.setMnemonic(KeyEvent.VK_S);
+			menuItemNew.addActionListener((ActionEvent event) ->
+			{
+				boardDisplay.solveSudoku();
+			});
+			menu.add(menuItemNew);
 		});
 	}
 }

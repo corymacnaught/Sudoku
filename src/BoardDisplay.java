@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 
 public class BoardDisplay extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Board board;
 	private Cell[][] cells = new Cell[Board.NUM_ROWS][Board.NUM_COLUMNS];
 	

@@ -1,5 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -8,6 +7,10 @@ import javax.swing.JPanel;
 
 public class Cell extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Position position;
 	private JLabel label;
 	
