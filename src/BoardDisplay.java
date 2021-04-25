@@ -6,7 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 
-public class BoardDisplay extends JPanel{
+public class BoardDisplay extends JPanel implements Runnable{
 
 	/**
 	 * 
@@ -14,6 +14,7 @@ public class BoardDisplay extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private Board board;
 	private Cell[][] cells = new Cell[Board.NUM_ROWS][Board.NUM_COLUMNS];
+	Thread t;
 	
 	public BoardDisplay(int[][] grid) {
 		this.board = new Board(grid);
@@ -30,7 +31,7 @@ public class BoardDisplay extends JPanel{
 				c.weightx = 1.0;
 				c.weighty = 1.0;
 				cells[row][column] = new Cell(row, column);
-				cells[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+				cells[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				this.add(cells[row][column], c);
 			}
 		}
@@ -42,17 +43,22 @@ public class BoardDisplay extends JPanel{
 			@Override
 			public void boardEventOccurred(BoardEvent evt)
 			{
-				System.out.println("Row = " + evt.getObject().row + " : Column = " + evt.getObject().column + " : Value = " + evt.getObject().value + " : IsValidEntry = " + board.isValidAddition(evt.getObject().row, evt.getObject().column, evt.getObject().value));
+				cells[evt.getObject().row][evt.getObject().column].setBorder(BorderFactory.createLineBorder(Color.RED));;
 				updateCell(evt.getObject().row, evt.getObject().column, evt.getObject().value);
-				for (int i = 0; i < 5000; i++) {
-					System.out.println("Slow down");
+				
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
 	}
 	
 	public void solveSudoku() {
-		this.board.solve();
+		Thread t = new Thread(this);
+		t.start();
 	}
 	
 	private void updateCells() {
@@ -64,6 +70,12 @@ public class BoardDisplay extends JPanel{
 	}
 	
 	private void updateCell(int row, int column, int value) {
-		this.cells[row][column].setValue(value);
+		Cell cell = this.cells[row][column];
+		cell.setValue(value);
+	}
+
+	@Override
+	public void run() {
+		this.board.solve();
 	}
 }
