@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,10 +13,16 @@ import javax.swing.JPanel;
 public class Sudoku implements ISpecifics{
 	
 	private static JFrame frame;
+	private static JPanel panel;
 	
-	public Sudoku() {
-		
-	}
+	public static void addComponentListener(JFrame frame) {
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+            	panel.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
+            }
+        });
+    }
 	
 	public static void main(String args[]) {
 		
@@ -34,21 +42,19 @@ public class Sudoku implements ISpecifics{
 			frame = new JFrame("Sudoku");
 			frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 			frame.setLocation((int) SCREEN_SIZE.getWidth() / 2 - FRAME_WIDTH / 2, (int) SCREEN_SIZE.getHeight() / 2 - FRAME_HEIGHT / 2);
+			frame.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+			frame.getContentPane().setBackground(Color.BLACK);
 			frame.setResizable(true);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
 			
-			JPanel panel = new JPanel();
-			panel.setBounds(0, 0, FRAME_HEIGHT, FRAME_HEIGHT - 50);
-			panel.setPreferredSize(new Dimension(panel.getBounds().width, panel.getBounds().height));
-			panel.setBackground(Color.BLACK);
-			frame.add(panel, BorderLayout.CENTER);
+			panel = new JPanel();
+			//panel.setBounds(0, 0, frame.getHeight(), frame.getHeight());
+			panel.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
+			panel.setBackground(Color.WHITE);
 			
-			JPanel panel2 = new JPanel();
-			panel2.setBounds(panel.getBounds());
-			panel2.setPreferredSize(panel.getSize());
-			panel2.setBackground(Color.WHITE);
-			panel.add(panel2);
+			addComponentListener(frame);
+			frame.add(panel);
 		});
 	}
 }
