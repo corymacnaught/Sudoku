@@ -15,6 +15,10 @@ public class Board {
 	
 	private int[][] grid;
 	
+	public Board() {
+		this.grid = Board.generateRandomSudokuGrid();
+	}
+	
 	public Board(int[][] grid) {
 		this.grid = Board.isValidGrid(grid) ? grid : Board.generateRandomSudokuGrid();
 	}

@@ -13,13 +13,13 @@ import javax.swing.JPanel;
 public class Sudoku implements ISpecifics{
 	
 	private static JFrame frame;
-	private static JPanel panel;
+	private static BoardDisplay boardDisplay;
 	
 	public static void addComponentListener(JFrame frame) {
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-            	panel.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
+            	boardDisplay.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
             }
         });
     }
@@ -48,17 +48,13 @@ public class Sudoku implements ISpecifics{
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
 			
-			panel = new JPanel();
-			//panel.setBounds(0, 0, frame.getHeight(), frame.getHeight());
-			panel.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
-			panel.setBackground(Color.WHITE);
-			
-			Cell cell = new Cell(0, 0);
-			cell.setPreferredSize(new Dimension(10, 10));
-			panel.add(cell);
+			boardDisplay = new BoardDisplay();
+			boardDisplay.setBounds(0, 0, frame.getHeight(), frame.getHeight());
+			boardDisplay.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
+			boardDisplay.setBackground(Color.WHITE);
 			
 			addComponentListener(frame);
-			frame.add(panel);
+			frame.add(boardDisplay);
 		});
 	}
 }
