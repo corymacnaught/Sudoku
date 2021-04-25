@@ -53,6 +53,10 @@ public class Sudoku implements ISpecifics{
 			panel.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
 			panel.setBackground(Color.WHITE);
 			
+			Cell cell = new Cell(0, 0);
+			cell.setPreferredSize(new Dimension(10, 10));
+			panel.add(cell);
+			
 			addComponentListener(frame);
 			frame.add(panel);
 		});
