@@ -4,17 +4,17 @@ import java.util.EventObject;
 @SuppressWarnings("serial")
 public class BoardEvent extends EventObject
 {
-	int value;
+	CellObject object;
 	
-	public BoardEvent(Object source)
+	public BoardEvent(Object cellObject)
 	{
-		super(source);
-		if (source instanceof Integer)
-			this.value = (int)source;
+		super(cellObject);
+		if (source instanceof CellObject)
+			this.object = (CellObject)cellObject;
 	}
 	
-	public int getValue() {
-		return this.value;
+	public CellObject getObject() {
+		return this.object;
 	}
 }
 
