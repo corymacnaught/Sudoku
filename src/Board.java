@@ -61,7 +61,7 @@ public class Board {
 	private boolean backtrack(int emptyRow, int emptyColumn) {
 		for (int value = 1; value <= 9; value++) {
 			//System.out.println("Row = " + emptyRow + " : Column = " + emptyColumn + " : Value = " + value + " : IsValidEntry = " + this.isValidAddition(emptyRow, emptyColumn, value));
-			fireDisplayEvent(new BoardEvent(value));
+			fireDisplayEvent(new BoardEvent(new CellObject(emptyRow, emptyColumn, value)));
 			if (this.isValidAddition(emptyRow, emptyColumn, value)) {
 				this.grid[emptyRow][emptyColumn] = value;
 				if (this.solve(emptyRow, emptyColumn)) {

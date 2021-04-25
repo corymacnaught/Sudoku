@@ -42,21 +42,28 @@ public class BoardDisplay extends JPanel{
 			@Override
 			public void boardEventOccurred(BoardEvent evt)
 			{
-				System.out.println("test");
+				System.out.println("Row = " + evt.getObject().row + " : Column = " + evt.getObject().column + " : Value = " + evt.getObject().value + " : IsValidEntry = " + board.isValidAddition(evt.getObject().row, evt.getObject().column, evt.getObject().value));
+				updateCell(evt.getObject().row, evt.getObject().column, evt.getObject().value);
+				for (int i = 0; i < 5000; i++) {
+					System.out.println("Slow down");
+				}
 			}
 		});
 	}
 	
 	public void solveSudoku() {
 		this.board.solve();
-		//this.updateCells();
 	}
 	
 	private void updateCells() {
 		for (int row = 0; row < Board.NUM_ROWS; row++) {
 			for (int column = 0; column < Board.NUM_COLUMNS; column++) {
-				this.cells[row][column].setValue(this.board.getValue(row, column));
+				this.updateCell(row, column, this.board.getValue(row, column));
 			}
 		}
+	}
+	
+	private void updateCell(int row, int column, int value) {
+		this.cells[row][column].setValue(value);
 	}
 }
