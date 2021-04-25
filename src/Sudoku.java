@@ -48,11 +48,11 @@ public class Sudoku implements ISpecifics{
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
 			
-			boardDisplay = new BoardDisplay();
+			boardDisplay = new BoardDisplay(grid);
 			//boardDisplay.setBounds(0, 0, frame.getHeight(), frame.getHeight());
 			boardDisplay.setPreferredSize(new Dimension(frame.getHeight() - CORRECTION_HEIGHT, frame.getHeight() - CORRECTION_HEIGHT));
 			boardDisplay.setBackground(Color.WHITE);
-			
+
 			addComponentListener(frame);
 			frame.add(boardDisplay);
 		});

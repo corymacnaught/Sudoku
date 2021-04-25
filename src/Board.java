@@ -23,6 +23,10 @@ public class Board {
 		this.grid = Board.isValidGrid(grid) ? grid : Board.generateRandomSudokuGrid();
 	}
 	
+	public int getValue(int row, int column) {
+		return this.grid[row][column];
+	}
+	
 	// Solve the current board
 	public void solve() {
 		this.solve(0, 0);
