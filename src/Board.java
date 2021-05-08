@@ -90,6 +90,14 @@ public class Board {
 		return !(rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value));
 	}
 	
+	private static int countSolutions(int[][] grid) {
+		return Board.countSolutions(new Board(grid));
+	}
+	
+	private static int countSolutions(Board board) {
+		return 0;
+	}
+	
 	// Check if the current Sudoku is Valid
 	public static boolean isValidGrid(int[][] grid) {
 		if (grid.length != NUM_COLUMNS) return false; // Not valid if a column length is more or less than 9
