@@ -14,6 +14,7 @@ public class BoardDisplay extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	private Board board;
 	private Cell[][] cells = new Cell[Board.NUM_ROWS][Board.NUM_COLUMNS];
+	private int delay;
 	Thread t;
 	
 	public BoardDisplay(int[][] grid) {
@@ -36,6 +37,8 @@ public class BoardDisplay extends JPanel implements Runnable{
 			}
 		}
 		
+		this.setDelay(0);
+		
 		this.updateCells();
 		
 		board.addBoardEventListener(new BoardEventListener()
@@ -47,7 +50,7 @@ public class BoardDisplay extends JPanel implements Runnable{
 				cell.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 				updateCell(evt.getObject().row, evt.getObject().column, evt.getObject().value);
 				
-				try { Thread.sleep(100); }
+				try { Thread.sleep(delay); }
 				catch (InterruptedException e) { e.printStackTrace(); }
 
 				cell.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -58,6 +61,10 @@ public class BoardDisplay extends JPanel implements Runnable{
 	public void solveSudoku() {
 		Thread t = new Thread(this);
 		t.start();
+	}
+	
+	public void setDelay(int value) {
+		if (value >= 0) this.delay = value;
 	}
 	
 	private void updateCells() {

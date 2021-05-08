@@ -66,13 +66,23 @@ public class Sudoku implements ISpecifics{
 			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
 			
-			JMenuItem menuItemNew = new JMenuItem("Solve");
-			menuItemNew.setMnemonic(KeyEvent.VK_S);
-			menuItemNew.addActionListener((ActionEvent event) ->
+			JMenuItem solve = new JMenuItem("Solve");
+			solve.setMnemonic(KeyEvent.VK_S);
+			solve.addActionListener((ActionEvent event) ->
 			{
+				boardDisplay.setDelay(100);
 				boardDisplay.solveSudoku();
 			});
-			menu.add(menuItemNew);
+			menu.add(solve);
+			
+			JMenuItem solveFast = new JMenuItem("Solve Fast");
+			solveFast.setMnemonic(KeyEvent.VK_F);
+			solveFast.addActionListener((ActionEvent event) ->
+			{
+				boardDisplay.setDelay(0);
+				boardDisplay.solveSudoku();
+			});
+			menu.add(solveFast);
 		});
 	}
 }
