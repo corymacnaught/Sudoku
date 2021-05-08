@@ -20,8 +20,8 @@ public class Board {
 	}
 	
 	// Solve the current board
-	public void solve() {
-		this.solve(0, 0);
+	public boolean solve() {
+		return this.solve(0, 0);
 	}
 	
 	private boolean solve(int row, int column) {
@@ -93,12 +93,13 @@ public class Board {
 		return !(rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value));
 	}
 	
-	private static int countSolutions(int[][] grid) {
-		return Board.countSolutions(new Board(grid));
-	}
-	
-	private static int countSolutions(Board board) {
-		return 0;
+	public static int countSolutions(int[][] grid) {
+		int numberOfSolutions = 0;
+		Board board = new Board(grid);
+		
+		while (board.solve()) numberOfSolutions++;
+		
+		return numberOfSolutions;
 	}
 	
 	// Check if the current Sudoku is Valid

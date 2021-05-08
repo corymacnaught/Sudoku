@@ -57,5 +57,7 @@ public class Sudoku {
 		System.out.println(board.toString());
 		board.solve();
 		System.out.println(board.toString());
+		
+		System.out.println(Board.countSolutions(grid2));
 	}
 }
