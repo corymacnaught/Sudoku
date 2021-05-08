@@ -1,25 +1,27 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class Sudoku implements ISpecifics{
 	
 	private static JFrame frame;
-	private static JPanel panel;
+	private static BoardDisplay boardDisplay;
 	
 	public static void addComponentListener(JFrame frame) {
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-            	panel.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
+            	boardDisplay.setPreferredSize(new Dimension(frame.getHeight() - CORRECTION_HEIGHT, frame.getHeight() - CORRECTION_HEIGHT));
             }
         });
     }
@@ -48,13 +50,39 @@ public class Sudoku implements ISpecifics{
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
 			
-			panel = new JPanel();
-			//panel.setBounds(0, 0, frame.getHeight(), frame.getHeight());
-			panel.setPreferredSize(new Dimension(frame.getHeight(), frame.getHeight()));
-			panel.setBackground(Color.WHITE);
-			
+			boardDisplay = new BoardDisplay(grid);
+			//boardDisplay.setBounds(0, 0, frame.getHeight(), frame.getHeight());
+			boardDisplay.setPreferredSize(new Dimension(frame.getHeight() - CORRECTION_HEIGHT, frame.getHeight() - CORRECTION_HEIGHT));
+			boardDisplay.setBackground(Color.WHITE);
+
 			addComponentListener(frame);
-			frame.add(panel);
+			frame.add(boardDisplay);
+			
+			// Menu
+			JMenuBar menuBar = new JMenuBar();
+			frame.setJMenuBar(menuBar);
+			
+			JMenu menu = new JMenu("Actions");
+			menu.setMnemonic(KeyEvent.VK_A);
+			menuBar.add(menu);
+			
+			JMenuItem solve = new JMenuItem("Solve");
+			solve.setMnemonic(KeyEvent.VK_S);
+			solve.addActionListener((ActionEvent event) ->
+			{
+				boardDisplay.setDelay(100);
+				boardDisplay.solveSudoku();
+			});
+			menu.add(solve);
+			
+			JMenuItem solveFast = new JMenuItem("Solve Fast");
+			solveFast.setMnemonic(KeyEvent.VK_F);
+			solveFast.addActionListener((ActionEvent event) ->
+			{
+				boardDisplay.setDelay(0);
+				boardDisplay.solveSudoku();
+			});
+			menu.add(solveFast);
 		});
 	}
 }
