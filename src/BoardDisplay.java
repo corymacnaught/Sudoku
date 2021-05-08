@@ -43,15 +43,14 @@ public class BoardDisplay extends JPanel implements Runnable{
 			@Override
 			public void boardEventOccurred(BoardEvent evt)
 			{
-				cells[evt.getObject().row][evt.getObject().column].setBorder(BorderFactory.createLineBorder(Color.RED));;
+				Cell cell = cells[evt.getObject().row][evt.getObject().column];
+				cell.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 				updateCell(evt.getObject().row, evt.getObject().column, evt.getObject().value);
 				
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				try { Thread.sleep(100); }
+				catch (InterruptedException e) { e.printStackTrace(); }
+
+				cell.setBorder(BorderFactory.createLineBorder(Color.RED));
 			}
 		});
 	}
