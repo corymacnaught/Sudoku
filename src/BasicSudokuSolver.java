@@ -30,7 +30,7 @@ public class BasicSudokuSolver extends SudokuSolver{
 		// Check validity of adding numbers in order from 1 to 9
 		// If no valid number back track
 		for (int value = 1; value <= 9; value++) {
-			//System.out.println("Row = " + emptyRow + " : Column = " + emptyColumn + " : Value = " + value + " : IsValidEntry = " + this.isValidAddition(emptyRow, emptyColumn, value));
+			System.out.println("Row = " + emptyRow + " : Column = " + emptyColumn + " : Value = " + value + " : IsValidEntry = " + this.isValidAddition(emptyRow, emptyColumn, value));
 			if (this.isValidAddition(emptyRow, emptyColumn, value)) {
 				this.board.setValue(emptyRow, emptyColumn, value);
 				if (this.solve(emptyRow, emptyColumn)) {

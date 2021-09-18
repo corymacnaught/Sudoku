@@ -14,10 +14,10 @@ public abstract class Board {
 	public abstract boolean isValid();
 	
 	protected static Cell[][] gridToBoard(int[][] grid) {
-		Cell[][] board = new Cell[BasicBoard.NUM_ROWS][BasicBoard.NUM_COLUMNS];
+		Cell[][] board = new Cell[Board.NUM_ROWS][Board.NUM_COLUMNS];
 		
-		for (int row = 0; row < BasicBoard.NUM_ROWS; row++) {
-			for (int column = 0; column < BasicBoard.NUM_COLUMNS; column++) {
+		for (int row = 0; row < Board.NUM_ROWS; row++) {
+			for (int column = 0; column < Board.NUM_COLUMNS; column++) {
 				board[row][column] = new Cell(grid[row][column]);
 			}
 		}
