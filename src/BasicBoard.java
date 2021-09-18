@@ -13,16 +13,10 @@ public class BasicBoard extends Board {
 	
 	//first number = rows, second number = columns
 	
-	private Cell[][] board;
-	
 	public BasicBoard(int[][] grid) {
 		Cell[][] board = BasicBoard.gridToBoard(grid);
-		this.board = BasicBoard.isValidBoard(board) ? board : BasicBoard.gridToBoard(BasicBoard.generateRandomSudokuGrid());
-	}
-	
-	// Solve the current board
-	public void solve() {
-		this.solve(0, 0);
+		this.board = board;
+		if (!this.isValid()) this.board = BasicBoard.gridToBoard(BasicBoard.generateRandomSudokuGrid());
 	}
 	
 	protected boolean solve(int row, int column) {
@@ -62,10 +56,6 @@ public class BasicBoard extends Board {
 		return false;
 	}
 	
-	public boolean isValid() {
-		return BasicBoard.isValidBoard(this.board);
-	}
-	
 	// Static functions
 	// Check if the adding a value to the sudoku will invalidate it
 	// This should only be used if the current Sudoku board is already validated
@@ -91,8 +81,7 @@ public class BasicBoard extends Board {
 		return !(rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value));
 	}
 	
-	// Check if the current Sudoku is Valid
-	public static boolean isValidBoard(Cell[][] board) {
+	public boolean isValid() {
 		if (board.length != NUM_COLUMNS) return false; // Not valid if a column length is more or less than 9
 		
 		HashMap<Integer, Integer>[] rows = new HashMap[NUM_ROWS];
@@ -133,33 +122,6 @@ public class BasicBoard extends Board {
 		return true;
 	}
 	
-	// Generates a board with one solution
-	public static int[][] generateRandomSudokuGrid() {
-		int[][] nullGrid = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
-		
-		return nullGrid;
-	}
-	
-	public static Cell[][] gridToBoard(int[][] grid) {
-		Cell[][] board = new Cell[BasicBoard.NUM_ROWS][BasicBoard.NUM_COLUMNS];
-		
-		for (int row = 0; row < BasicBoard.NUM_ROWS; row++) {
-			for (int column = 0; column < BasicBoard.NUM_COLUMNS; column++) {
-				board[row][column] = new Cell(grid[row][column]);
-			}
-		}
-		
-		return board;
-	}
-	
 	// Get the box that the row/column is in
 	//{0,1,2}
 	//{3,4,5}
@@ -177,11 +139,5 @@ public class BasicBoard extends Board {
 	public static int calculateSudokuBox(int row, int column) {
 		
 		return row / SMALL_BOX_ROWS * SMALL_BOX_COLUMNS + column / SMALL_BOX_COLUMNS;
-	}
-	
-	public String toString() {
-		String s = "";
-		for (Cell[] array : board) s += Arrays.toString(array) + "\n";
-		return s;
 	}
 }
