@@ -12,7 +12,6 @@ public class BasicSudokuSolver extends SudokuSolver{
 		
 		// row = index / NUM_COLUMNS
 		// column = index % NUM_COLUMNS
-		
 		int emptyRow = 0;
 		int emptyColumn = 0;
 		for (int i = row * Board.NUM_COLUMNS + column; i <= Board.NUM_COLUMNS * Board.NUM_ROWS; i++) {
@@ -20,8 +19,8 @@ public class BasicSudokuSolver extends SudokuSolver{
 			
 			int r = i / Board.NUM_COLUMNS;
 			int c = i % Board.NUM_COLUMNS;
-			if (this.board.isEmpty(row, column)) {
-				System.out.println(Board.NUM_COLUMNS);
+			//if (this.grid[r][c] == 0) {
+			if (this.board.isEmpty(r, c)) {
 				emptyRow = r;
 				emptyColumn = c;
 				break;
@@ -35,7 +34,7 @@ public class BasicSudokuSolver extends SudokuSolver{
 			if (this.isValidAddition(emptyRow, emptyColumn, value)) {
 				this.board.setValue(emptyRow, emptyColumn, value);
 				if (this.solve(emptyRow, emptyColumn)) {
-					System.out.println(this.board.toString());
+					//System.out.println(this.toString());
 					return true;
 				}
 				this.board.setValue(emptyRow, emptyColumn, 0);
