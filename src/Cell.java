@@ -23,7 +23,7 @@ public class Cell{
 	}
 	
 	public void setValue(int value) {
-		if (value > 0 && value < 10) {
+		if (value >= 0 && value < 10) {
 			this.value = value;
 			//this.label.setText(Integer.toString(this.getValue()));
 		}
