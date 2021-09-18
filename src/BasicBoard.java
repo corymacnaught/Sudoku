@@ -3,14 +3,6 @@ import java.util.HashMap;
 
 public class BasicBoard extends Board {
 	
-	public final static int NUM_ROWS = 9;
-	public final static int NUM_COLUMNS = 9;
-	
-	private final static int SMALL_BOX_ROWS = (int) Math.sqrt(NUM_ROWS);
-	private final static int SMALL_BOX_COLUMNS = (int) Math.sqrt(NUM_COLUMNS);
-	
-	public final static int NUM_BOXES = SMALL_BOX_ROWS * SMALL_BOX_COLUMNS;
-	
 	//first number = rows, second number = columns
 	
 	public BasicBoard(int[][] grid) {
@@ -120,24 +112,5 @@ public class BasicBoard extends Board {
 		}
 		
 		return true;
-	}
-	
-	// Get the box that the row/column is in
-	//{0,1,2}
-	//{3,4,5}
-	//{6,7,8}
-	//	 0,1,2,3,4,5,6,7,8
-	// 0{0,0,0,1,1,1,2,2,2}
-	// 1{0,0,0,1,1,1,2,2,2}
-	// 2{0,0,0,1,1,1,2,2,2}
-	// 3{3,3,3,4,4,4,5,5,5}
-	// 4{3,3,3,4,4,4,5,5,5}
-	// 5{3,3,3,4,4,4,5,5,5}
-	// 6{6,6,6,7,7,7,8,8,8}
-	// 7{6,6,6,7,7,7,8,8,8}
-	// 8{6,6,6,7,7,7,8,8,8}
-	public static int calculateSudokuBox(int row, int column) {
-		
-		return row / SMALL_BOX_ROWS * SMALL_BOX_COLUMNS + column / SMALL_BOX_COLUMNS;
 	}
 }
