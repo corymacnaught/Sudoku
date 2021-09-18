@@ -4,23 +4,16 @@ public abstract class Board {
 	public final static int NUM_ROWS = 9;
 	public final static int NUM_COLUMNS = 9;
 	
-	private final static int SMALL_BOX_ROWS = (int) Math.sqrt(NUM_ROWS);
-	private final static int SMALL_BOX_COLUMNS = (int) Math.sqrt(NUM_COLUMNS);
+	protected final static int SMALL_BOX_ROWS = (int) Math.sqrt(NUM_ROWS);
+	protected final static int SMALL_BOX_COLUMNS = (int) Math.sqrt(NUM_COLUMNS);
 	
 	public final static int NUM_BOXES = SMALL_BOX_ROWS * SMALL_BOX_COLUMNS;
 	
 	protected Cell[][] board;
 	
-	// Solve the current board
-	public void solve() {
-		this.solve(0, 0);
-	}
-	
-	protected abstract boolean solve(int row, int column);
-	
 	public abstract boolean isValid();
 	
-	public static Cell[][] gridToBoard(int[][] grid) {
+	protected static Cell[][] gridToBoard(int[][] grid) {
 		Cell[][] board = new Cell[BasicBoard.NUM_ROWS][BasicBoard.NUM_COLUMNS];
 		
 		for (int row = 0; row < BasicBoard.NUM_ROWS; row++) {
@@ -33,19 +26,7 @@ public abstract class Board {
 	}
 	
 	// Generates a board with one solution
-	public static int[][] generateRandomSudokuGrid() {
-		int[][] nullGrid = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
-		
-		return nullGrid;
-	}
+	//public abstract static int[][] generateRandomSudokuGrid();
 	
 	// Get the box that the row/column is in
 	//{0,1,2}
@@ -64,6 +45,27 @@ public abstract class Board {
 	public static int calculateSudokuBox(int row, int column) {
 		
 		return row / SMALL_BOX_ROWS * SMALL_BOX_COLUMNS + column / SMALL_BOX_COLUMNS;
+	}
+	
+	public static boolean gridIsProperSize(int[][] grid) {
+		if (grid.length != NUM_COLUMNS) return false;
+		for (int row = 0; row < Board.NUM_ROWS; row++) {
+			if (grid[row].length != NUM_ROWS) return false;
+		}
+		
+		return true;
+	}
+	
+	public int getValue(int row, int column) {
+		return board[row][column].getValue();
+	}
+	
+	public void setValue(int row, int column, int value) {
+		this.board[row][column].setValue(value);
+	}
+	
+	public boolean isEmpty(int row, int column) {
+		return this.board[row][column].isEmpty();
 	}
 	
 	public String toString() {

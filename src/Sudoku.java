@@ -53,9 +53,15 @@ public class Sudoku {
        		 			  { 0, 4, 0, 0, 5, 0, 0, 3, 6 },
        		 			  { 7, 0, 3, 0, 1, 8, 0, 0, 0 } };
 		
-		BasicBoard board = new BasicBoard(grid2);
+		BasicBoard board = null;
+		try {
+			board = new BasicBoard(grid2);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(board.toString());
-		board.solve();
-		System.out.println(board.toString());
+		BasicSudokuSolver solver = new BasicSudokuSolver(board);
+		System.out.println(solver.solve());
 	}
 }
