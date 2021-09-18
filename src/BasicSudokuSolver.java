@@ -12,25 +12,28 @@ public class BasicSudokuSolver extends SudokuSolver{
 		
 		// row = index / NUM_COLUMNS
 		// column = index % NUM_COLUMNS
-		int emptyRow = 0;
-		int emptyColumn = 0;
-		for (int i = row * Board.NUM_COLUMNS + column; i <= Board.NUM_COLUMNS * Board.NUM_ROWS; i++) {
-			if (i == Board.NUM_ROWS * Board.NUM_COLUMNS) return true;
-			
-			int r = i / Board.NUM_COLUMNS;
-			int c = i % Board.NUM_COLUMNS;
-			//if (this.grid[r][c] == 0) {
-			if (this.board.isEmpty(r, c)) {
-				emptyRow = r;
-				emptyColumn = c;
-				break;
-			}
-		}
+		int index = this.findNextEmptySpace(row, column);
+		if (index == -1) return true;
 		
-		// Check validity of adding numbers in order from 1 to 9
-		// If no valid number back track
+		int emptyRow = index / Board.NUM_COLUMNS;
+		int emptyColumn = index % Board.NUM_COLUMNS;
+		
+		return this.backtrack(emptyRow, emptyColumn);
+	}
+	
+	private int findNextEmptySpace(int row, int column) {
+		for (int i = row * Board.NUM_COLUMNS + column; i < Board.NUM_COLUMNS * Board.NUM_ROWS; i++)
+			if (this.board.isEmpty(i / Board.NUM_COLUMNS, i % Board.NUM_COLUMNS)) return i;
+		
+		return -1;
+	}
+	
+	// Check validity of adding numbers in order from 1 to 9
+			// If no valid number back track
+	private boolean backtrack(int emptyRow, int emptyColumn) {
 		for (int value = 1; value <= 9; value++) {
 			//System.out.println("Row = " + emptyRow + " : Column = " + emptyColumn + " : Value = " + value + " : IsValidEntry = " + this.isValidAddition(emptyRow, emptyColumn, value));
+			//fireDisplayEvent(new BoardEvent(new CellObject(emptyRow, emptyColumn, value)));
 			if (this.isValidAddition(emptyRow, emptyColumn, value)) {
 				this.board.setValue(emptyRow, emptyColumn, value);
 				if (this.solve(emptyRow, emptyColumn)) {
