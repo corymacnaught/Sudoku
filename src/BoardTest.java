@@ -11,24 +11,24 @@ class BoardTest {
 	
 	@Test
 	void calculateSudokuBoxTest() {
-		assertEquals(0, Board.calculateSudokuBox(0, 0));
-		assertEquals(0, Board.calculateSudokuBox(2, 2));
-		assertEquals(1, Board.calculateSudokuBox(0, 3));
-		assertEquals(1, Board.calculateSudokuBox(2, 5));
-		assertEquals(2, Board.calculateSudokuBox(0, 6));
-		assertEquals(2, Board.calculateSudokuBox(2, 8));
-		assertEquals(3, Board.calculateSudokuBox(3, 0));
-		assertEquals(3, Board.calculateSudokuBox(5, 2));
-		assertEquals(4, Board.calculateSudokuBox(3, 3));
-		assertEquals(4, Board.calculateSudokuBox(5, 5));
-		assertEquals(5, Board.calculateSudokuBox(3, 6));
-		assertEquals(5, Board.calculateSudokuBox(5, 8));
-		assertEquals(6, Board.calculateSudokuBox(6, 0));
-		assertEquals(6, Board.calculateSudokuBox(8, 2));
-		assertEquals(7, Board.calculateSudokuBox(6, 3));
-		assertEquals(7, Board.calculateSudokuBox(8, 5));
-		assertEquals(8, Board.calculateSudokuBox(6, 6));
-		assertEquals(8, Board.calculateSudokuBox(8, 8));
+		assertEquals(0, BasicBoard.calculateSudokuBox(0, 0));
+		assertEquals(0, BasicBoard.calculateSudokuBox(2, 2));
+		assertEquals(1, BasicBoard.calculateSudokuBox(0, 3));
+		assertEquals(1, BasicBoard.calculateSudokuBox(2, 5));
+		assertEquals(2, BasicBoard.calculateSudokuBox(0, 6));
+		assertEquals(2, BasicBoard.calculateSudokuBox(2, 8));
+		assertEquals(3, BasicBoard.calculateSudokuBox(3, 0));
+		assertEquals(3, BasicBoard.calculateSudokuBox(5, 2));
+		assertEquals(4, BasicBoard.calculateSudokuBox(3, 3));
+		assertEquals(4, BasicBoard.calculateSudokuBox(5, 5));
+		assertEquals(5, BasicBoard.calculateSudokuBox(3, 6));
+		assertEquals(5, BasicBoard.calculateSudokuBox(5, 8));
+		assertEquals(6, BasicBoard.calculateSudokuBox(6, 0));
+		assertEquals(6, BasicBoard.calculateSudokuBox(8, 2));
+		assertEquals(7, BasicBoard.calculateSudokuBox(6, 3));
+		assertEquals(7, BasicBoard.calculateSudokuBox(8, 5));
+		assertEquals(8, BasicBoard.calculateSudokuBox(6, 6));
+		assertEquals(8, BasicBoard.calculateSudokuBox(8, 8));
 	}
 	
 	@Test
@@ -53,8 +53,8 @@ class BoardTest {
 	 			  			   {0, 0, 0, 0, 0, 0, 0, 7, 4}, 
 	 			  			   {0, 0, 5, 2, 0, 6, 3, 0, 0} };
 		
-		Board boardEmpty = new Board(gridEmpty);
-		Board boardFilled = new Board(gridFilled);
+		BasicBoard boardEmpty = new BasicBoard(gridEmpty);
+		BasicBoard boardFilled = new BasicBoard(gridFilled);
 		
 		assertEquals(true, boardEmpty.isValidAddition(0, 0, 1));
 		assertEquals(false, boardFilled.isValidAddition(6, 2, 2)); // fails on row
