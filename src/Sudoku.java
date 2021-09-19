@@ -61,7 +61,7 @@ public class Sudoku {
 			e.printStackTrace();
 		}
 		System.out.println(board.toString());
-		BasicSudokuSolver solver = new BasicSudokuSolver(board);
+		BacktrackSudokuSolver solver = new BacktrackSudokuSolver(board);
 		System.out.println(solver.solve());
 	}
 }

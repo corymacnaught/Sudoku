@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public abstract class Board {
 	public final static int NUM_ROWS = 9;
@@ -11,7 +13,29 @@ public abstract class Board {
 	
 	protected Cell[][] board;
 	
+	//first number = rows, second number = columns
+	
+	public Board(int[][] grid) throws Exception {
+		if (Board.gridIsProperSize(grid)) {
+			Cell[][] board = Board.gridToBoard(grid);
+			this.board = board;
+		}else {
+			throw new Exception("Board is not the proper size");
+		}
+	}
+	
 	public abstract boolean isValid();
+	
+	public abstract boolean isValidAddition(int row, int column, int value);
+	
+	public static boolean gridIsProperSize(int[][] grid) {
+		if (grid.length != NUM_COLUMNS) return false;
+		for (int row = 0; row < Board.NUM_ROWS; row++) {
+			if (grid[row].length != NUM_ROWS) return false;
+		}
+		
+		return true;
+	}
 	
 	protected static Cell[][] gridToBoard(int[][] grid) {
 		Cell[][] board = new Cell[Board.NUM_ROWS][Board.NUM_COLUMNS];
@@ -47,13 +71,19 @@ public abstract class Board {
 		return row / SMALL_BOX_ROWS * SMALL_BOX_COLUMNS + column / SMALL_BOX_COLUMNS;
 	}
 	
-	public static boolean gridIsProperSize(int[][] grid) {
-		if (grid.length != NUM_COLUMNS) return false;
-		for (int row = 0; row < Board.NUM_ROWS; row++) {
-			if (grid[row].length != NUM_ROWS) return false;
-		}
+	// Generates a board with one solution
+	public static int[][] generateRandomSudokuGrid() {
+		int[][] nullGrid = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 		
-		return true;
+		return nullGrid;
 	}
 	
 	public int getValue(int row, int column) {
