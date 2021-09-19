@@ -5,7 +5,7 @@ public class RowRule extends Rule{
 	}
 
 	@Override
-	public boolean evaluate(Board board) {
+	public boolean evaluate(int row, int column, int index, Board board) {
 		// TODO Auto-generated method stub
 		return false;
 	}

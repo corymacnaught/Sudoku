@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public abstract class Board {
 	public final static int NUM_ROWS = 9;
@@ -24,6 +25,31 @@ public abstract class Board {
 	}
 	
 	public abstract boolean isValid();
+	
+	// Static functions
+	// Check if the adding a value to the sudoku will invalidate it
+	// This should only be used if the current Sudoku board is already validated
+	public boolean isValidAddition(int row, int column, int value) {
+		if (value < 1 || value > 9) return false; // Invalid if number is not inclusive of 1-9
+		if (!this.isEmpty(row, column)) return false; // Invalid if row and column already has a value
+		
+		HashMap<Integer, Integer> rowMap = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> columnMap = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> boxMap = new HashMap<Integer, Integer>();
+		
+		int boxRowStart = row - row % Board.SMALL_BOX_ROWS;
+        int boxColStart = column - column % Board.SMALL_BOX_COLUMNS;
+		for (int i = 0; i < Board.NUM_ROWS; i++) {
+			if (!this.isEmpty(row, i)) rowMap.put(this.getValue(row, i), 1);				// Row
+			if (!this.isEmpty(i, column)) columnMap.put(this.getValue(i, column), 1);	// Column
+			
+			if (i >= boxRowStart && i < boxRowStart + Board.SMALL_BOX_ROWS) // Box
+				for (int g = boxColStart; g < boxColStart + Board.SMALL_BOX_COLUMNS; g++)
+					if (!this.isEmpty(i, g)) boxMap.put(this.getValue(i, g), 1);
+		}
+		
+		return !(rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value));
+	}
 	
 	protected static Cell[][] gridToBoard(int[][] grid) {
 		Cell[][] board = new Cell[Board.NUM_ROWS][Board.NUM_COLUMNS];

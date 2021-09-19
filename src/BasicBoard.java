@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -8,6 +9,7 @@ public class BasicBoard extends Board {
 	public BasicBoard(int[][] grid) throws Exception{
 		super(grid);
 		
+		this.rules = new ArrayList<Rule>();
 		this.rules.add(new RowRule());
 		this.rules.add(new ColumnRule());
 		this.rules.add(new BoxRule());
