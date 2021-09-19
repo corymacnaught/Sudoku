@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 public class BasicBoard extends Board {
 	
-	//first number = rows, second number = columns
-	
 	public BasicBoard(int[][] grid) throws Exception{
 		super(grid);
 	}
