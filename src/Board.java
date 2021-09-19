@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public abstract class Board {
@@ -10,6 +11,17 @@ public abstract class Board {
 	public final static int NUM_BOXES = SMALL_BOX_ROWS * SMALL_BOX_COLUMNS;
 	
 	protected Cell[][] board;
+	
+	protected ArrayList<Rule> rules;
+	
+	public Board(int[][] grid) throws Exception {
+		if (Board.gridIsProperSize(grid)) {
+			Cell[][] board = Board.gridToBoard(grid);
+			this.board = board;
+		}else {
+			throw new Exception("Board is not the proper size");
+		}
+	}
 	
 	public abstract boolean isValid();
 	

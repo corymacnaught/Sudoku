@@ -6,12 +6,11 @@ public class BasicBoard extends Board {
 	//first number = rows, second number = columns
 	
 	public BasicBoard(int[][] grid) throws Exception{
-		if (Board.gridIsProperSize(grid)) {
-			Cell[][] board = Board.gridToBoard(grid);
-			this.board = board;
-		}else {
-			throw new Exception("Board is not the proper size");
-		}
+		super(grid);
+		
+		this.rules.add(new RowRule());
+		this.rules.add(new ColumnRule());
+		this.rules.add(new BoxRule());
 	}
 	
 	public boolean isValid() {
