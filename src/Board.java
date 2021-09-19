@@ -13,7 +13,7 @@ public abstract class Board {
 	
 	protected Cell[][] board;
 	
-	protected ArrayList<Rule> rules;
+	//first number = rows, second number = columns
 	
 	public Board(int[][] grid) throws Exception {
 		if (Board.gridIsProperSize(grid)) {
@@ -26,29 +26,15 @@ public abstract class Board {
 	
 	public abstract boolean isValid();
 	
-	// Static functions
-	// Check if the adding a value to the sudoku will invalidate it
-	// This should only be used if the current Sudoku board is already validated
-	public boolean isValidAddition(int row, int column, int value) {
-		if (value < 1 || value > 9) return false; // Invalid if number is not inclusive of 1-9
-		if (!this.isEmpty(row, column)) return false; // Invalid if row and column already has a value
-		
-		HashMap<Integer, Integer> rowMap = new HashMap<Integer, Integer>();
-		HashMap<Integer, Integer> columnMap = new HashMap<Integer, Integer>();
-		HashMap<Integer, Integer> boxMap = new HashMap<Integer, Integer>();
-		
-		int boxRowStart = row - row % Board.SMALL_BOX_ROWS;
-        int boxColStart = column - column % Board.SMALL_BOX_COLUMNS;
-		for (int i = 0; i < Board.NUM_ROWS; i++) {
-			if (!this.isEmpty(row, i)) rowMap.put(this.getValue(row, i), 1);				// Row
-			if (!this.isEmpty(i, column)) columnMap.put(this.getValue(i, column), 1);	// Column
-			
-			if (i >= boxRowStart && i < boxRowStart + Board.SMALL_BOX_ROWS) // Box
-				for (int g = boxColStart; g < boxColStart + Board.SMALL_BOX_COLUMNS; g++)
-					if (!this.isEmpty(i, g)) boxMap.put(this.getValue(i, g), 1);
+	public abstract boolean isValidAddition(int row, int column, int value);
+	
+	public static boolean gridIsProperSize(int[][] grid) {
+		if (grid.length != NUM_COLUMNS) return false;
+		for (int row = 0; row < Board.NUM_ROWS; row++) {
+			if (grid[row].length != NUM_ROWS) return false;
 		}
 		
-		return !(rowMap.containsKey(value) || columnMap.containsKey(value) || boxMap.containsKey(value));
+		return true;
 	}
 	
 	protected static Cell[][] gridToBoard(int[][] grid) {
@@ -85,13 +71,19 @@ public abstract class Board {
 		return row / SMALL_BOX_ROWS * SMALL_BOX_COLUMNS + column / SMALL_BOX_COLUMNS;
 	}
 	
-	public static boolean gridIsProperSize(int[][] grid) {
-		if (grid.length != NUM_COLUMNS) return false;
-		for (int row = 0; row < Board.NUM_ROWS; row++) {
-			if (grid[row].length != NUM_ROWS) return false;
-		}
+	// Generates a board with one solution
+	public static int[][] generateRandomSudokuGrid() {
+		int[][] nullGrid = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+       		 { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 		
-		return true;
+		return nullGrid;
 	}
 	
 	public int getValue(int row, int column) {
