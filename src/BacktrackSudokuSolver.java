@@ -1,8 +1,8 @@
 import java.util.HashMap;
 
-public class BasicSudokuSolver extends SudokuSolver{
+public class BacktrackSudokuSolver extends SudokuSolver{
 	
-	public BasicSudokuSolver(Board board) {
+	public BacktrackSudokuSolver(Board board) {
 		this.board = board;
 	}
 	
